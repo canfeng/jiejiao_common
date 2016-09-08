@@ -1,0 +1,14 @@
+com\jiejiao\common\utils\UUIDUtils.class
+com\jiejiao\common\utils\JedisPoolUtil.class
+com\jiejiao\common\utils\security\Md5Utils.class
+com\jiejiao\common\utils\config\ConfigUtils.class
+com\jiejiao\common\utils\QRCodeUtil.class
+com\jiejiao\common\utils\weixin\entity\WXConfig.class
+com\jiejiao\common\utils\security\HexUtils.class
+com\jiejiao\common\utils\http\HttpClientUtil.class
+com\jiejiao\common\utils\ObjectSerializeUtil.class
+com\jiejiao\common\utils\security\DesUtils.class
+com\jiejiao\common\utils\http\HttpClientWrapper$VERBTYPE.class
+com\jiejiao\common\utils\http\HttpClientWrapper.class
+com\jiejiao\common\utils\http\ResponseContent.class
+com\jiejiao\common\utils\weixin\entity\Result.class

@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.jiejiao</groupId>
+  <artifactId>jiejiao-common</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <name>jiejiao_common</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+		<project.build.targetJdk>1.7</project.build.targetJdk>
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<spring.version>3.2.10.RELEASE</spring.version>
+
+		<!-- plugins version -->
+		<dep.log4j.version>1.2.17</dep.log4j.version>
+		<dep.slf4j.version>1.7.7</dep.slf4j.version>
+		<dep.maven-eclipse-plugin.version>2.9</dep.maven-eclipse-plugin.version>
+		<dep.plugin.javadoc.version>2.9.1</dep.plugin.javadoc.version>
+		<dep.plugin.source.version>2.2.1</dep.plugin.source.version>
+		<dep.plugin.jar.version>2.4</dep.plugin.jar.version>
+		<dep.plugin.deploy.version>2.7</dep.plugin.deploy.version>
+		<dep.plugin.release.version>2.5</dep.plugin.release.version>
+		<dep.maven-surefire-plugin.version>2.9</dep.maven-surefire-plugin.version>
+		<dep.maven-compiler-plugin.version>3.1</dep.maven-compiler-plugin.version>
+		<dep.maven-jetty-plugin.version>6.1.26</dep.maven-jetty-plugin.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		
+		<!-- 日志 相关 -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+		<!-- fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.7</version>
+		</dependency>
+		<!-- redis相关 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		<!-- 二维码 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<!-- httpclient -->
+		<dependency>
+		    <groupId>commons-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.1</version>
+		</dependency>
+	</dependencies>
+</project>

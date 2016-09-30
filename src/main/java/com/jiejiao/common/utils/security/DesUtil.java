@@ -10,7 +10,7 @@ import javax.crypto.spec.DESKeySpec;
 /*
  * DES安全
  */
-public class DesUtils {
+public class DesUtil {
 	/*
 	 * 加密方法
 	 * 
@@ -30,7 +30,7 @@ public class DesUtils {
 			Cipher cipher = Cipher.getInstance("DES");
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, secureRandom);
 			byte[] output = cipher.doFinal(input.getBytes(encoding));
-			return new String(HexUtils.toHex(output), "UTF8");
+			return new String(HexUtil.toHex(output), "UTF8");
 		} catch (Exception err) {
 			throw new RuntimeException(err.getMessage());
 		}
@@ -68,7 +68,7 @@ public class DesUtils {
 			Cipher cipher = Cipher.getInstance("DES");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey, secureRandom);
 			byte[] output = cipher
-					.doFinal(HexUtils.fromHex(input.getBytes("UTF8")));
+					.doFinal(HexUtil.fromHex(input.getBytes("UTF8")));
 			return new String(output, encoding);
 		} catch (Exception err) {
 			throw new RuntimeException(err.getMessage());

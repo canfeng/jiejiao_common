@@ -1,12 +1,14 @@
 package com.jiejiao.common.utils.http;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -82,6 +84,7 @@ public class HttpClientUtil {
         ResponseContent ret = null;
         try {
             String[] paramStr = url.split("[?]", 2);
+            
             if (paramStr == null || paramStr.length != 2) {
                 return null;
             }
@@ -100,6 +103,41 @@ public class HttpClientUtil {
                 hw.addNV(keyValue[0], keyValue[1]);
             }
             ret = hw.postNV(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+    /**
+     * 将参数拼装在url中，进行post请求。
+     * 
+     * @param url
+     * @return
+     */
+    public static ResponseContent postUrl2(String url) {
+    	HttpClientWrapper hw = new HttpClientWrapper();
+        ResponseContent ret = null;
+        try {
+            String[] paramStr = url.split("[?]", 2);
+            
+            if (paramStr == null || paramStr.length != 2) {
+                return null;
+            }
+            String[] paramArray = paramStr[1].split("[&]");
+            if (paramArray == null) {
+                return null;
+            }
+            for (String param : paramArray) {
+                if (param == null || "".equals(param.trim())) {
+                    continue;
+                }
+                String[] keyValue = param.split("[=]", 2);
+                if (keyValue == null || keyValue.length != 2) {
+                    continue;
+                }
+                hw.addNV(keyValue[0], keyValue[1]);
+            }
+            ret = hw.postNV(paramStr[0]);
         } catch (Exception e) {
             e.printStackTrace();
         }

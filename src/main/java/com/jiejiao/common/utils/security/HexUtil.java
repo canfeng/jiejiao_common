@@ -5,7 +5,7 @@ import java.io.*;
 /*
  * 十六进制处理
  */
-public class HexUtils {
+public class HexUtil {
 	/*
 	 * 转换为十六进制
 	 * 

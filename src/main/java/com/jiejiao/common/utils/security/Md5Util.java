@@ -6,7 +6,7 @@ import java.security.MessageDigest;
  * @author ShiZhiGuo
  *
  */
-public class Md5Utils {
+public class Md5Util {
 
 	/**
 	 * md5加密

@@ -9,14 +9,14 @@ import java.util.ResourceBundle;
  * @author shizhiguo
  * @date 2016年9月8日 下午4:24:46
  */
-public class ConfigUtils {
+public class ConfigUtil {
 	
 	private static ResourceBundle bundle=ResourceBundle.getBundle("config");
 	
 	/**
 	 * @param propFileName 配置文件的路径和名称 ，不要后缀 如 spring/redis
 	 */
-	public ConfigUtils(String propFileName){
+	public ConfigUtil(String propFileName){
 		bundle=ResourceBundle.getBundle(propFileName);
 	}
 	

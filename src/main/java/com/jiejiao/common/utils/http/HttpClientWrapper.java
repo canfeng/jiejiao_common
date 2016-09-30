@@ -48,7 +48,11 @@ public class HttpClientWrapper {
 		/**
 		 * 实体方式post请求
 		 */
-		ENTITYPOST
+		ENTITYPOST,
+		/**
+		 * url参数post
+		 */
+		POST
 	}
 
 	private HttpClient client;
@@ -115,6 +119,19 @@ public class HttpClientWrapper {
 	public ResponseContent postNV(String url) throws HttpException, IOException {
 		return this.getResponse(url, "UTF-8", VERBTYPE.NVPOST);
 	}
+	
+	/**
+	 * 将参数拼在url中post
+	 * @author shizhiguo
+	 * @date 2016年9月18日 下午12:00:38
+	 * @param url
+	 * @return
+	 * @throws HttpException
+	 * @throws IOException
+	 */
+	public ResponseContent postUrl(String url) throws HttpException,IOException{
+		return this.getResponse(url, "UTF-8", VERBTYPE.POST);
+	}
 
 	/**
 	 * POST方式发送实体请求URL
@@ -160,6 +177,11 @@ public class HttpClientWrapper {
 				PostMethod pm = new PostMethod(url);
 				RequestEntity entity = getEntityBody();
 				pm.setRequestEntity(entity);
+				hm = pm;
+			}else if (VERBTYPE.POST == bodyType) {
+				PostMethod pm = new PostMethod(url);
+				NameValuePair[] nvps = this.getNVBodyArray();
+				//pm.setRequestBody(nvps);
 				hm = pm;
 			}
 			hm.addRequestHeader("user-agent",

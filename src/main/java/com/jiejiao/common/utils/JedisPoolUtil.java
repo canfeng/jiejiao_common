@@ -507,6 +507,24 @@ public class JedisPoolUtil {
             close(jedis);
         }
     }
+    /**
+     * 删除key
+     * @author shizhiguo
+     * @date 2016年9月30日 上午11:38:15
+     * @param key
+     */
+    public static void del(String key) {
+    	Jedis jedis = null;
+    	try {
+    		jedis = jedisPool.getResource();
+    		jedis.del(key);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		//返还到连接池
+    		close(jedis);
+    	}
+    }
  
     public static long llen(byte[] key) {
  

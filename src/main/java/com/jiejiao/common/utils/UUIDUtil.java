@@ -7,7 +7,7 @@ import java.util.UUID;
  * @author shizhiguo
  * @date 2016年9月8日 下午4:10:47
  */
-public class UUIDUtils {
+public class UUIDUtil {
 
 	
 

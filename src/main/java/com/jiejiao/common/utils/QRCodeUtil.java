@@ -8,7 +8,9 @@ import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Hashtable;
 import java.util.Random;
 
@@ -35,7 +37,7 @@ public class QRCodeUtil{
     // LOGO高度  
     private static final int HEIGHT = 70;  
   
-    private static BufferedImage createImage(String content, String imgPath,  
+    public static BufferedImage createImage(String content, String imgPath,  
             boolean needCompress) throws Exception {  
         Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();  
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);  
@@ -73,13 +75,21 @@ public class QRCodeUtil{
      * @throws Exception 
      */  
     private static void insertImage(BufferedImage source, String imgPath,  
-            boolean needCompress) throws Exception {  
-        File file = new File(imgPath);  
-        if (!file.exists()) {  
-            System.err.println(""+imgPath+"   该文件不存在！");  
-            return;  
-        }  
-        Image src = ImageIO.read(new File(imgPath));  
+            boolean needCompress) throws Exception { 
+    	Image src=null;
+    	if(imgPath.startsWith("http://") || imgPath.startsWith("https://")){
+    		src = ImageIO.read(new URL(imgPath));  
+//    		URL url = new URL(imgPath);  
+//    		InputStream is = url.openConnection().getInputStream();  
+//    		src = ImageIO.read(is);  
+    	}else{
+    		File file = new File(imgPath);  
+    		 if (!file.exists()) {  
+	            System.err.println(""+imgPath+"   该文件不存在！");  
+	            return;  
+    	     }
+    		 src = ImageIO.read(new File(imgPath));  
+    	}
         int width = src.getWidth(null);  
         int height = src.getHeight(null);  
         if (needCompress) { // 压缩LOGO  
@@ -264,8 +274,8 @@ public class QRCodeUtil{
     }  
   
     public static void main(String[] args) throws Exception {  
-        String text = "薯　灯可分列式本上楞珂要瓜熟蒂落！000000000000000";  
-        QRCodeUtil.encode(text, "c:/df.jsp", "c:/a/", true);  
+       String url="http://www.jiejiaolicai.com/upload/images/717209ee-8d4c-4002-8de2-e6de6a8f7241.png";
+       BufferedImage createImage = createImage("ceshi", url, false);
     }  
 }  
 

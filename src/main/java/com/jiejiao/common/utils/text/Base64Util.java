@@ -67,4 +67,9 @@ public class Base64Util {
 	public static String fromBase64String(String input) {
 		return fromBase64String(input, "utf8");
 	}
+	
+	public static void main(String[] args) {
+		String in = toBase64String("还好");
+		System.out.println(in);
+	}	
 }

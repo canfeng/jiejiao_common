@@ -7,8 +7,11 @@ com\jiejiao\common\utils\http\HttpClientUtil.class
 com\jiejiao\common\utils\ObjectSerializeUtil.class
 com\jiejiao\common\utils\security\DesUtil.class
 com\jiejiao\common\utils\security\SHA1Util.class
+com\jiejiao\common\utils\text\SlEncoding.class
+com\jiejiao\common\utils\text\SlHex.class
 com\jiejiao\common\utils\http\HttpClientWrapper$VERBTYPE.class
 com\jiejiao\common\utils\security\Md5Util.class
 com\jiejiao\common\utils\http\HttpClientWrapper.class
 com\jiejiao\common\utils\http\ResponseContent.class
+com\jiejiao\common\utils\text\Base64Util.class
 com\jiejiao\common\utils\UUIDUtil.class

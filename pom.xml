@@ -9,7 +9,9 @@
 
   <name>jiejiao_common</name>
   <url>http://maven.apache.org</url>
-
+  <build>
+   	<defaultGoal>install</defaultGoal>
+  </build>
   <properties>
 		<project.build.targetJdk>1.7</project.build.targetJdk>
 		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>

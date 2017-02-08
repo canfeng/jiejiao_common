@@ -139,6 +139,14 @@ public class JedisPoolUtil {
 		}
 	}
 	
+	/**
+	 * 
+	 * @author shizhiguo
+	 * @date 2017年2月8日 上午11:14:48
+	 * @param key
+	 * @param value
+	 * @param time 缓存时间，单位秒
+	 */
 	public static void set(String key, String value, int time) {
 
 		Jedis jedis = null;

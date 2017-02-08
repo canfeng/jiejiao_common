@@ -2,11 +2,15 @@ package com.jiejiao.common.tencent;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.jiejiao.common.utils.JedisPoolUtil;
+import com.jiejiao.common.utils.StringUtil;
 import com.jiejiao.common.utils.config.ConfigUtil;
 import com.jiejiao.common.utils.http.RequestUtil;
 
@@ -22,17 +26,54 @@ public class WXUtil {
 	//state参数值
 	private static String WXStateStr=ConfigUtil.get("wx_state_str");
 	//获取code
-	private static String WXCodeUrl=ConfigUtil.get("wx_code_url");
+	private static String WXCodeUrl="https://open.weixin.qq.com/connect/oauth2/authorize";
 	//获取网页授权access_token (和微信基础access_token不同,基础token是全局的;而网页授权token是跟访问用户关联的,最好每次都重新获取)
-	private static String WXAccessTokenUrl=ConfigUtil.get("wx_access_token_url");
+	private static String WXAccessTokenUrl="https://api.weixin.qq.com/sns/oauth2/access_token";
 	//刷新网页授权access_token
-	private static String WXRefreshTokenUrl=ConfigUtil.get("wx_refresh_token_url");
+	private static String WXRefreshTokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token";
 	//获取用户信息
-	private static String WXUserInfoUrl=ConfigUtil.get("wx_snsapi_userinfo_url");
+	private static String WXUserInfoUrl="https://api.weixin.qq.com/sns/userinfo";
 	//检验access_token
-	private static String WXCheckAccessTokenUrl=ConfigUtil.get("wx_check_access_token_url");
-	//access_token缓存key
-	//private static String WXAccessTokenRedisKey=ConfigUtil.get("wx_access_token_redis_key");
+	private static String WXCheckAccessTokenUrl="https://api.weixin.qq.com/sns/auth";
+	//微信公众号 全局唯一接口调用凭据
+	private static String WXBaseAccessTokenUrl="https://api.weixin.qq.com/cgi-bin/token";
+	//base_access_token缓存key
+	private static String WXBaseAccessTokenRedisKey=ConfigUtil.get("wx_access_token_redis_key");
+	//发送模版消息接口
+	private static String WXSendTemplateMsgUrl="https://api.weixin.qq.com/cgi-bin/message/template/send";
+	
+	
+	/**
+	 * 获取全局access_token
+	 * @author shizhiguo
+	 * @return 
+	 * @date 2017年2月8日 上午11:06:26
+	 */
+	public static String getBaseAccessToken(){
+		
+		String token = JedisPoolUtil.get(WXBaseAccessTokenRedisKey);
+		
+		if (StringUtil.isNullOrEmpty(token)) {
+			
+			String param="?grant_type=client_credential&appid="+AppID+"&secret="+AppSecret;
+			String res = RequestUtil.getUrl(WXBaseAccessTokenUrl+param);
+			
+			JSONObject obj = JSON.parseObject(res);
+			Integer errcode = obj.getInteger("errcode");
+			if(errcode!=null){
+				log(obj.getString("errmsg"));
+			}else{
+				
+				token=obj.getString("access_token");
+				
+				JedisPoolUtil.set(WXBaseAccessTokenRedisKey, token, obj.getIntValue("expires_in")-1000);
+				
+			}
+			
+		}
+		return token;
+	}
+	
 	
 	
 	/**
@@ -91,7 +132,7 @@ public class WXUtil {
 	 */
 	public static boolean isError(String res){
 		JSONObject json = JSON.parseObject(res);
-		if (json.get("errcode")!=null) {
+		if (json.get("errcode")!=null && json.getIntValue("errcode")!=0) {
 			log("WXUtil.isError==>"+res);
 			return true;
 		}
@@ -119,6 +160,38 @@ public class WXUtil {
 		log("WXUtil.getUserInfo==>"+user.toString());
 		return user;
 	}
+	
+	
+	/**
+	 * 发送模版消息
+	 * @author shizhiguo
+	 * @date 2017年2月8日 下午3:35:16
+	 */
+	public static boolean sendTemplateMsg(String userOpenId,String templateId,String url,Map<String, Object> dataMap){
+		
+		String postUrl=WXSendTemplateMsgUrl+"?access_token="+getBaseAccessToken();
+		
+		Map<String, Object> map=new HashMap<String,Object>();
+		
+		map.put("touser", userOpenId);//oK2NYwpCnvrPYVNqJWoHZELVI2M0
+		map.put("template_id", templateId);//st5Zb8jO-p4bb9WzzZg7agmsWp1qionFpgQhRJPn4mE
+		map.put("url", url);
+		map.put("data", dataMap);
+		
+		String json = JSON.toJSONString(map);
+		
+		log(json);
+		
+		String res = RequestUtil.postUrl(postUrl, json);
+		
+		log(res);
+
+		return !isError(res);
+		
+	}
+	
+	
+	
 	/**
 	 * 输出日志
 	 * @author shizhiguo
@@ -154,3 +227,4 @@ public class WXUtil {
 	
 	
 }
+

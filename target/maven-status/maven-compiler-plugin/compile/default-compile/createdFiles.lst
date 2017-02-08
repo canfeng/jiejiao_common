@@ -24,6 +24,7 @@ com\jiejiao\common\utils\ImageUtil.class
 com\jiejiao\common\utils\http\HttpClientUtil.class
 com\jiejiao\common\tencent\WxUserInfo.class
 com\jiejiao\common\tencent\XMLParser.class
+com\jiejiao\common\tencent\WXTemplateMsgAttr.class
 com\jiejiao\common\tencent\MD5.class
 com\jiejiao\common\utils\UUIDUtil.class
 com\jiejiao\common\utils\http\HttpClientWrapper.class

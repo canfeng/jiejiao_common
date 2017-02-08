@@ -6,11 +6,12 @@ D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\Random
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\ImageUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\QRCodeUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\HexUtil.java
-D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\JedisPoolUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\XMLParser.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\JedisPoolUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\Signature.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\http\HttpClientUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\IServiceRequest.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\WXTemplateMsgAttr.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\UUIDUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\ObjectSerializeUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\FileUtil.java

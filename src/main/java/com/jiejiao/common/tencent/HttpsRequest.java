@@ -10,6 +10,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Map;
 
 import javax.net.ssl.SSLContext;
 
@@ -167,6 +168,73 @@ public class HttpsRequest implements IServiceRequest{
         }
 
         return result;
+    }
+    /**
+     * 通过Https往API post xml数据
+     *
+     * @param url    API地址
+     * @param xmlObj 要提交的XML数据对象
+     * @return API回包的实际数据
+     * @throws IOException
+     * @throws KeyStoreException
+     * @throws UnrecoverableKeyException
+     * @throws NoSuchAlgorithmException
+     * @throws KeyManagementException
+     */
+    
+    public String sendPost(String url, Map<String, Object> map) throws IOException, KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyManagementException {
+    	
+    	if (!hasInit) {
+    		init();
+    	}
+    	
+    	String result = null;
+    	
+    	HttpPost httpPost = new HttpPost(url);
+    	
+    	//解决XStream对出现双下划线的bug
+    	XStream xStreamForRequestPostData = new XStream(new DomDriver("UTF-8", new XmlFriendlyNameCoder("-_", "_")));
+    	
+    	//将要提交给API的数据对象转换成XML格式数据Post给API
+    	String postDataXML = XMLParser.getXMLFromMap(map);
+    	
+    	Util.log("API，POST过去的数据是：");
+    	Util.log(postDataXML);
+    	
+    	//得指明使用UTF-8编码，否则到API服务器XML的中文不能被成功识别
+    	StringEntity postEntity = new StringEntity(postDataXML, "UTF-8");
+    	httpPost.addHeader("Content-Type", "text/xml");
+    	httpPost.setEntity(postEntity);
+    	
+    	//设置请求器的配置
+    	httpPost.setConfig(requestConfig);
+    	
+    	Util.log("executing request" + httpPost.getRequestLine());
+    	
+    	try {
+    		HttpResponse response = httpClient.execute(httpPost);
+    		
+    		HttpEntity entity = response.getEntity();
+    		
+    		result = EntityUtils.toString(entity, "UTF-8");
+    		
+    	} catch (ConnectionPoolTimeoutException e) {
+    		log.e("http get throw ConnectionPoolTimeoutException(wait time out)");
+    		
+    	} catch (ConnectTimeoutException e) {
+    		log.e("http get throw ConnectTimeoutException");
+    		
+    	} catch (SocketTimeoutException e) {
+    		log.e("http get throw SocketTimeoutException");
+    		
+    	} catch (Exception e) {
+    		log.e("http get throw Exception");
+    		
+    	} finally {
+    		httpPost.abort();
+    	}
+    	
+    	return result;
     }
 
     /**

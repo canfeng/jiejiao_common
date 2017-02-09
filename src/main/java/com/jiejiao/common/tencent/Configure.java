@@ -16,19 +16,19 @@ public class Configure {
 	private static String key = ConfigUtil.get("wx_mch_key_secret");
 
 	//微信分配的公众号ID（开通公众号之后可以获取到）
-	private static String appID = "";
+	private static String appID = ConfigUtil.get("wx_app_id");
 
 	//微信支付分配的商户号ID（开通公众号的微信支付功能之后可以获取到）
-	private static String mchID = "";
+	private static String mchID = ConfigUtil.get("wx_mch_id");
 
 	//受理模式下给子商户分配的子商户号
 	private static String subMchID = "";
 
 	//HTTPS证书的本地路径
-	private static String certLocalPath = "";
+	private static String certLocalPath = ConfigUtil.get("wx_ssl_cert_path");
 
 	//HTTPS证书密码，默认密码等于商户号MCHID
-	private static String certPassword = "";
+	private static String certPassword = ConfigUtil.get("wx_mch_id");
 
 	//是否使用异步线程的方式来上报API测速，默认为异步模式
 	private static boolean useThreadToDoReport = true;

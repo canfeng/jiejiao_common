@@ -2,10 +2,17 @@ package com.jiejiao.common.tencent;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -21,8 +28,8 @@ import com.jiejiao.common.utils.http.RequestUtil;
  */
 public class WXUtil {
 	
-	private static String AppID=ConfigUtil.get("wx_app_id");
-	private static String AppSecret=ConfigUtil.get("wx_app_secret");
+	private static String WXAppID=ConfigUtil.get("wx_app_id");
+	private static String WXAppSecret=ConfigUtil.get("wx_app_secret");
 	//state参数值
 	private static String WXStateStr=ConfigUtil.get("wx_state_str");
 	//获取code
@@ -41,6 +48,13 @@ public class WXUtil {
 	private static String WXBaseAccessTokenRedisKey=ConfigUtil.get("wx_access_token_redis_key");
 	//发送模版消息接口
 	private static String WXSendTemplateMsgUrl="https://api.weixin.qq.com/cgi-bin/message/template/send";
+	//微信企业付款接口
+	private static String WXQyPayUrl="https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+	//微信服务号 商户号
+	private static String WxMchId=ConfigUtil.get("wx_mch_id");
+	//微信服务号商户号密钥
+	private static String WxMchKeySecret=ConfigUtil.get("wx_mch_key_secret");
+	
 	
 	
 	/**
@@ -55,7 +69,7 @@ public class WXUtil {
 		
 		if (StringUtil.isNullOrEmpty(token)) {
 			
-			String param="?grant_type=client_credential&appid="+AppID+"&secret="+AppSecret;
+			String param="?grant_type=client_credential&appid="+WXAppID+"&secret="+WXAppSecret;
 			String res = RequestUtil.getUrl(WXBaseAccessTokenUrl+param);
 			
 			JSONObject obj = JSON.parseObject(res);
@@ -88,7 +102,7 @@ public class WXUtil {
 	public static void authorize(String redirectUrl,boolean isNotifyUser,HttpServletResponse response){
 		String url="";
 		try {
-			url = WXCodeUrl + "?appid="+AppID
+			url = WXCodeUrl + "?appid="+WXAppID
 							+ "&redirect_uri=" + URLEncoder.encode(redirectUrl,"utf-8") 
 							+ "&response_type=code"
 							+ "&scope="+(isNotifyUser?"snsapi_userinfo":"snsapi_base")
@@ -110,7 +124,7 @@ public class WXUtil {
 	 * @param code
 	 */
 	public static WxConfig getAccessToken(String code){
-		String url=WXAccessTokenUrl + "?appid="+AppID+"&secret="+AppSecret+"&code="+code+"&grant_type=authorization_code";
+		String url=WXAccessTokenUrl + "?appid="+WXAppID+"&secret="+WXAppSecret+"&code="+code+"&grant_type=authorization_code";
 		log("WXUtil.getAccessToken==>"+url);
 		// 获取响应内容
 		String content = RequestUtil.getUrl(url);
@@ -190,6 +204,57 @@ public class WXUtil {
 		
 	}
 	
+	/**
+	 *  企业付款
+	 * @author shizhiguo
+	 * @date 2017年2月9日 下午1:57:46
+	 * @param openId  支付用户openid
+	 * @param userRealName  用户真实姓名
+	 * @param amount  金额
+	 * @param tradeNo 交易订单号
+	 * @param desc 描述信息
+	 * @param ip  调用接口的ip
+	 * @return
+	 */
+	public static Map<String, Object> qyPay(String openId,String userRealName,Double amount,String tradeNo,String desc,String ip){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mch_appid", WXAppID);
+		map.put("mchid", WxMchId);
+		map.put("nonce_str", RandomStringGenerator.getRandomStringByLength(16));
+		map.put("partner_trade_no", tradeNo);
+		map.put("openid", openId);
+		map.put("check_name", "OPTION_CHECK");
+		map.put("re_user_name", userRealName);
+		map.put("amount", ((Double)(amount*100)).intValue());
+		map.put("desc", desc);
+		map.put("spbill_create_ip", ip);
+		
+		String sign = Signature.getSign(map);
+		map.put("sign", sign);
+		
+		
+		HttpsRequest request=null;
+		Map<String, Object> return_map=null;
+		try {
+			request = new HttpsRequest();
+		
+			String res = request.sendPost(WXQyPayUrl,map);
+			
+			log("请求返回的数据:"+res);
+			
+			return_map = XMLParser.getMapFromXML(res);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return return_map;
+	}
+	
+	
+	
+	
 	
 	
 	/**
@@ -216,13 +281,6 @@ public class WXUtil {
 		return true;
 	}
 	
-	public static void main(String[] args) {
-		String json="{\"access_token\":\"a19BvoJ1jgLWR-WDA4cEwBTvbJ5IZLBdJLO40SFsld1h1qiqJ5yqbfHCZw9aOpKWaXwvxjhV7JEloTo2iioSS4KsFV85ArpyGODaSdgxzzw\",\"expires_in\":7200,\"refresh_token\":\"jRmeiRHkBFXtJ-AStZWmOGOtbrYWhRX5PTz4pOrMYNW3VvORAFGEnOfewzL9Qx2KrkpRGFYZ7tPWLz-s0WArv_SgY0InQpnORu2Zv0k4dhk\",\"openid\":\"oK2NYwpCnvrPYVNqJWoHZELVI2M0\",\"scope\":\"snsapi_userinfo\",\"unionid\":\"oXUsNxNSLxBL6edD18Y-PnZpOgyM\"}";
-		WxConfig c = JSON.parseObject(json,WxConfig.class);
-		//WxConfig config=(new WXUtil()).new WxConfig();
-		//config.setAccess_token("access_token");
-		System.out.println(c);
-	}
 
 	
 	

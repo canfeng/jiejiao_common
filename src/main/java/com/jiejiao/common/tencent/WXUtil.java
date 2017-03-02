@@ -116,6 +116,31 @@ public class WXUtil {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 返回微信网页授权url
+	 * 1 第一步：用户同意授权，获取code
+	 * @author shizhiguo
+	 * @date 2016年12月16日 下午5:17:51
+	 * @param redirectUrl 回调地址
+	 * @param isNotifyUser true：scope=snsapi_userinfo  false:snsapi_base(静默)
+	 * @return
+	 */
+	public static String authorizeUrl(String redirectUrl,boolean isNotifyUser,HttpServletResponse response){
+		String url="";
+		try {
+			url = WXCodeUrl + "?appid="+WXAppID
+					+ "&redirect_uri=" + URLEncoder.encode(redirectUrl,"utf-8") 
+					+ "&response_type=code"
+					+ "&scope="+(isNotifyUser?"snsapi_userinfo":"snsapi_base")
+					+ "&state=" + WXStateStr 
+					+ "#wechat_redirect";
+			log("WXUtil.authorize==>"+url);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
 	
 	/**
 	 * 获取access_token和openid
@@ -224,7 +249,7 @@ public class WXUtil {
 		map.put("nonce_str", RandomStringGenerator.getRandomStringByLength(16));
 		map.put("partner_trade_no", tradeNo);
 		map.put("openid", openId);
-		map.put("check_name", "OPTION_CHECK");
+		map.put("check_name", "NO_CHECK");
 		map.put("re_user_name", userRealName);
 		map.put("amount", ((Double)(amount*100)).intValue());
 		map.put("desc", desc);

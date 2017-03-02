@@ -2,7 +2,7 @@ package com.jiejiao.common.utils.text;
 /*
  * 编码
  */
-public class SlEncoding {
+public class EncodingUtil {
     // 默认编码
     public static String Default = "utf8";
     /*

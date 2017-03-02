@@ -1,5 +1,4 @@
 com\jiejiao\common\utils\http\RequestUtil$HttpActionType.class
-com\jiejiao\common\utils\text\SlHex.class
 com\jiejiao\common\utils\QRCodeUtil.class
 com\jiejiao\common\tencent\HttpsRequest$ResultListener.class
 com\jiejiao\common\tencent\Configure.class
@@ -7,13 +6,14 @@ com\jiejiao\common\utils\JedisPoolUtil.class
 com\jiejiao\common\tencent\HttpsRequest.class
 com\jiejiao\common\tencent\WXUtil.class
 com\jiejiao\common\utils\text\Base64Util.class
-com\jiejiao\common\utils\text\SlEncoding.class
 com\jiejiao\common\utils\ObjectSerializeUtil.class
 com\jiejiao\common\utils\http\RequestUtil.class
+com\jiejiao\common\utils\security\RSAUtil.class
 com\jiejiao\common\tencent\WxConfig.class
 com\jiejiao\common\utils\DateUtil.class
 com\jiejiao\common\tencent\IServiceRequest.class
 com\jiejiao\common\utils\security\SHA1Util.class
+com\jiejiao\common\utils\text\EncodingUtil.class
 com\jiejiao\common\tencent\Signature.class
 com\jiejiao\common\tencent\Log.class
 com\jiejiao\common\tencent\Util.class
@@ -28,8 +28,11 @@ com\jiejiao\common\tencent\WXTemplateMsgAttr.class
 com\jiejiao\common\tencent\MD5.class
 com\jiejiao\common\utils\UUIDUtil.class
 com\jiejiao\common\utils\http\HttpClientWrapper.class
+com\jiejiao\common\utils\DomainUtil.class
 com\jiejiao\common\utils\config\ConfigUtil.class
+com\jiejiao\common\utils\XssShieldUtil.class
 com\jiejiao\common\utils\StringUtil.class
+com\jiejiao\common\utils\MapUtil.class
 com\jiejiao\common\utils\security\HexUtil.class
 com\jiejiao\common\utils\http\ResponseContent.class
 com\jiejiao\common\utils\FileUtil.class

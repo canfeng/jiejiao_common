@@ -40,6 +40,8 @@ public class WXUtil {
 	private static String WXRefreshTokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token";
 	//获取用户信息
 	private static String WXUserInfoUrl="https://api.weixin.qq.com/sns/userinfo";
+	//拉取公众号用户信息（可判断用户是否关注公众号）
+	private static String WXPullUserInfoUrl="https://api.weixin.qq.com/cgi-bin/user/info"; 
 	//检验access_token
 	private static String WXCheckAccessTokenUrl="https://api.weixin.qq.com/sns/auth";
 	//微信公众号 全局唯一接口调用凭据
@@ -88,6 +90,24 @@ public class WXUtil {
 		return token;
 	}
 	
+	/**
+	 * 拉取公众号用户信息（判断用户是否关注公众号）
+	 * shizhiguo	
+	 * 2017年3月4日 下午2:06:58
+	 */
+	public static Map<String, Object> pullPublicUserInfo(String openid){
+		Map<String, Object> map=new HashMap<>();
+		try {
+			
+			String param="?access_token="+getBaseAccessToken()+"&openid="+openid+"&lang=zh_CN";
+			String res = RequestUtil.getUrl(WXPullUserInfoUrl+param);
+			map=JSON.parseObject(res, Map.class);
+			
+		} catch (Exception e) {
+			log("pullPublicUserInfo:ERROR==>"+e.getMessage());
+		}
+		return map;
+	}
 	
 	
 	/**

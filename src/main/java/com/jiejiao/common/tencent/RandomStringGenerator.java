@@ -24,5 +24,17 @@ public class RandomStringGenerator {
         }
         return sb.toString();
     }
+    
+    
+    public static String getRandomNumberStringByLength(int length){
+    	 String baseStr = "123456789";
+         Random random = new Random();
+         StringBuffer sb = new StringBuffer();
+         for (int i = 0; i < length; i++) {
+             int number = random.nextInt(baseStr.length());
+             sb.append(baseStr.charAt(number));
+         }
+         return sb.toString();
+    }
 
 }

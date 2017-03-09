@@ -31,4 +31,11 @@ public class WXTemplateMsgAttr {
 		this.value = value;
 		this.color = color;
 	}
+
+	@Override
+	public String toString() {
+		return "WXTemplateMsgAttr [value=" + value + ", color=" + color + "]";
+	}
+	
+	
 }

@@ -1,9 +1,11 @@
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\HttpsRequest.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\SHA1Util.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\SignUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\http\ResponseContent.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\RandomStringGenerator.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\ImageUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\QRCodeUtil.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\ParamUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\RSAUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\HexUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\XMLParser.java
@@ -20,10 +22,11 @@ D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\FileUtil
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\WxConfig.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\WXUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\http\RequestUtil.java
-D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\text\Base64Util.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\Log.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\text\Base64Util.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\config\ConfigUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\text\EncodingUtil.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\CopyOnWriteMap.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\http\HttpClientWrapper.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\Configure.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\DateUtil.java
@@ -32,5 +35,6 @@ D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\StringUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\MapUtil.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\Util.java
+D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\utils\security\RSA.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\WxUserInfo.java
 D:\java\workspace\jiejiao_common\src\main\java\com\jiejiao\common\tencent\MD5.java

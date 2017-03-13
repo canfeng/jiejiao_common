@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSON;
@@ -27,6 +29,8 @@ import com.jiejiao.common.utils.http.RequestUtil;
  * @date 2016年12月16日 下午5:07:31
  */
 public class WXUtil {
+	
+	private static final Logger logger =LoggerFactory.getLogger(WXUtil.class);
 	
 	private static String WXAppID=ConfigUtil.get("wx_app_id");
 	private static String WXAppSecret=ConfigUtil.get("wx_app_secret");
@@ -192,7 +196,7 @@ public class WXUtil {
 	public static boolean isError(String res){
 		JSONObject json = JSON.parseObject(res);
 		if (json.get("errcode")!=null && json.getIntValue("errcode")!=0) {
-			log("WXUtil.isError==>"+res);
+			error("WXUtil.isError==>"+res);
 			return true;
 		}
 		return false;
@@ -308,7 +312,15 @@ public class WXUtil {
 	 * @date 2016年12月16日 下午6:43:11
 	 */
 	private static void log(Object obj){
-		System.out.println(obj.toString());
+		logger.info(obj.toString());
+	}
+	/**
+	 * 输出日志
+	 * @author shizhiguo
+	 * @date 2016年12月16日 下午6:43:11
+	 */
+	private static void error(Object obj){
+		logger.error(obj.toString());
 	}
 	
 	/**

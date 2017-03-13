@@ -4,11 +4,13 @@ com\jiejiao\common\tencent\HttpsRequest$ResultListener.class
 com\jiejiao\common\tencent\Configure.class
 com\jiejiao\common\utils\JedisPoolUtil.class
 com\jiejiao\common\tencent\HttpsRequest.class
+com\jiejiao\common\utils\CopyOnWriteMap.class
 com\jiejiao\common\tencent\WXUtil.class
 com\jiejiao\common\utils\text\Base64Util.class
 com\jiejiao\common\utils\ObjectSerializeUtil.class
 com\jiejiao\common\utils\http\RequestUtil.class
 com\jiejiao\common\utils\security\RSAUtil.class
+com\jiejiao\common\utils\security\ParamUtil.class
 com\jiejiao\common\tencent\WxConfig.class
 com\jiejiao\common\utils\DateUtil.class
 com\jiejiao\common\tencent\IServiceRequest.class
@@ -19,7 +21,6 @@ com\jiejiao\common\tencent\Log.class
 com\jiejiao\common\tencent\Util.class
 com\jiejiao\common\utils\security\DesUtil.class
 com\jiejiao\common\tencent\RandomStringGenerator.class
-com\jiejiao\common\utils\security\Md5Util.class
 com\jiejiao\common\utils\ImageUtil.class
 com\jiejiao\common\utils\http\HttpClientUtil.class
 com\jiejiao\common\tencent\WxUserInfo.class

@@ -3,8 +3,6 @@ package com.jiejiao.common.utils.security;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-
 import com.jiejiao.common.tencent.RandomStringGenerator;
 
 /**

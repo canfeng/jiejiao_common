@@ -53,7 +53,7 @@ public class ImageUtil {
 				Ratio = size / image.getWidth();
 		}
 		// 根据仿射转换和插值类型构造一个 AffineTransformOp。
-		AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(Ratio, Ratio), AffineTransformOp.TYPE_BICUBIC);
+		AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(Ratio, Ratio),null);
 		// 转换源 BufferedImage 并将结果存储在目标 BufferedImage 中。
 		image = op.filter(image, null);
 		// image.getScaledInstance(300,300,image.SCALE_SMOOTH);

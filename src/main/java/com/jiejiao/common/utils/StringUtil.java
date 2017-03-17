@@ -98,4 +98,21 @@ public class StringUtil {
 
 		return false;
 	}
+	
+	/*
+	 * 是否有一个为null（只要有一个为null，则返回true）
+	 * 
+	 * @param Object... input，输入
+	 * 
+	 * @return Boolean，结果
+	 */
+	public static Boolean isNullAny(Object... input) {
+		for (Object one : input) {
+			if (one == null) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

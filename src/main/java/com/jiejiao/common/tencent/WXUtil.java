@@ -99,13 +99,16 @@ public class WXUtil {
 	 * shizhiguo	
 	 * 2017年3月4日 下午2:06:58
 	 */
-	public static Map<String, Object> pullPublicUserInfo(String openid){
-		Map<String, Object> map=new HashMap<>();
+	public static JSONObject pullPublicUserInfo(String openid){
+		JSONObject map=null;
 		try {
 			
 			String param="?access_token="+getBaseAccessToken()+"&openid="+openid+"&lang=zh_CN";
 			String res = RequestUtil.getUrl(WXPullUserInfoUrl+param);
-			map=JSON.parseObject(res, Map.class);
+			
+			if(!isError(res)){
+				map=JSON.parseObject(res);
+			}
 			
 		} catch (Exception e) {
 			log("pullPublicUserInfo:ERROR==>"+e.getMessage());
@@ -165,6 +168,31 @@ public class WXUtil {
 		}
 		return url;
 	}
+	/**
+	 * 返回微信网页授权url
+	 * 1 第一步：用户同意授权，获取code
+	 * @author shizhiguo
+	 * @date 2016年12月16日 下午5:17:51
+	 * @param redirectUrl 回调地址
+	 * @param isNotifyUser true：scope=snsapi_userinfo  false:snsapi_base(静默)
+	 * @return
+	 */
+	public static String authorizeUrl(String redirectUrl,boolean isNotifyUser,String appid,HttpServletResponse response){
+		String url="";
+		try {
+			url = WXCodeUrl + "?appid="+appid
+					+ "&redirect_uri=" + URLEncoder.encode(redirectUrl,"utf-8") 
+					+ "&response_type=code"
+					+ "&scope="+(isNotifyUser?"snsapi_userinfo":"snsapi_base")
+					+ "&state=" + WXStateStr 
+					+ "#wechat_redirect";
+			log("WXUtil.authorize==>"+url);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
 	
 	/**
 	 * 获取access_token和openid
@@ -174,6 +202,26 @@ public class WXUtil {
 	 */
 	public static WxConfig getAccessToken(String code){
 		String url=WXAccessTokenUrl + "?appid="+WXAppID+"&secret="+WXAppSecret+"&code="+code+"&grant_type=authorization_code";
+		log("WXUtil.getAccessToken==>"+url);
+		// 获取响应内容
+		String content = RequestUtil.getUrl(url);
+		log("WXUtil.getAccessToken==>"+content);
+		if(isError(content)){
+			return null;
+		}
+		WxConfig wxconfig = JSON.parseObject(content,WxConfig.class);
+		log("WXUtil.getAccessToken==>"+wxconfig.toString());
+		return wxconfig;
+	}
+	
+	/**
+	 * 获取access_token和openid
+	 * @author shizhiguo
+	 * @date 2016年12月16日 下午5:52:14
+	 * @param code
+	 */
+	public static WxConfig getAccessToken(String code,String appid,String appsecret){
+		String url=WXAccessTokenUrl + "?appid="+appid+"&secret="+appsecret+"&code="+code+"&grant_type=authorization_code";
 		log("WXUtil.getAccessToken==>"+url);
 		// 获取响应内容
 		String content = RequestUtil.getUrl(url);
@@ -230,7 +278,7 @@ public class WXUtil {
 	 * @author shizhiguo
 	 * @date 2017年2月8日 下午3:35:16
 	 */
-	public static boolean sendTemplateMsg(String userOpenId,String templateId,String url,Map<String, Object> dataMap){
+	public static JSONObject sendTemplateMsg(String userOpenId,String templateId,String url,Map<String, Object> dataMap){
 		
 		String postUrl=WXSendTemplateMsgUrl+"?access_token="+getBaseAccessToken();
 		
@@ -248,9 +296,8 @@ public class WXUtil {
 		String res = RequestUtil.postUrl(postUrl, json);
 		
 		log(res);
-
-		return !isError(res);
-		
+		JSONObject obj=JSON.parseObject(res);
+		return obj;
 	}
 	
 	/**

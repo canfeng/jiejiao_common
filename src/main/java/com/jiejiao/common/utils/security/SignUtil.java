@@ -1,14 +1,9 @@
 package com.jiejiao.common.utils.security;
 
-import static org.junit.Assert.*;
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-
-import com.jiejiao.common.tencent.Util;
 
 /**
  * 签名

@@ -44,4 +44,22 @@ public class DateUtil {
         return  c.getTime();
     }  
 	
+    /**
+     * 计算两个日期之间的间隔天数
+     * @author shizhiguo
+     * @date 2017年3月20日 上午10:44:22
+     * @param end
+     * @param start
+     * @return
+     */
+    public static int getDateDiff(Date end,Date start){
+    	Calendar calendar1=Calendar.getInstance();
+    	calendar1.setTime(end);
+    	long time1 = calendar1.getTimeInMillis();
+    	Calendar calendar2=Calendar.getInstance();
+    	calendar2.setTime(start);
+    	long time2 = calendar2.getTimeInMillis();
+    	long diff=(time1-time2)/(1000*60*60*24);
+    	return Integer.parseInt(String.valueOf(diff));
+    }
 }

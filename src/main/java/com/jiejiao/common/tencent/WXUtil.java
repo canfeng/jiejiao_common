@@ -2,19 +2,13 @@ package com.jiejiao.common.tencent;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -22,6 +16,7 @@ import com.jiejiao.common.utils.JedisPoolUtil;
 import com.jiejiao.common.utils.StringUtil;
 import com.jiejiao.common.utils.config.ConfigUtil;
 import com.jiejiao.common.utils.http.RequestUtil;
+import com.jiejiao.common.utils.log.Log4jKit;
 
 /**
  * 微信公共类
@@ -54,6 +49,8 @@ public class WXUtil {
 	private static String WXBaseAccessTokenRedisKey=ConfigUtil.get("wx_access_token_redis_key");
 	//发送模版消息接口
 	private static String WXSendTemplateMsgUrl="https://api.weixin.qq.com/cgi-bin/message/template/send";
+	//发送客服消息
+	private static String WXSendKefuMsgUrl="https://api.weixin.qq.com/cgi-bin/message/custom/send";
 	//微信企业付款接口
 	private static String WXQyPayUrl="https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 	//微信服务号 商户号
@@ -298,6 +295,37 @@ public class WXUtil {
 		log(res);
 		JSONObject obj=JSON.parseObject(res);
 		return obj;
+	}
+	
+	/**
+	 * 发送客服消息
+	 * @author shizhiguo
+	 * @date 2017年4月1日 下午3:02:44
+	 * @param openid
+	 * @param type 类型  image/text
+	 * @param msg 
+	 * @param media_id 多媒体文件id
+	 */
+	public static boolean sendKefuMsg(String openid,String type,String msg,String media_id){
+		try {
+			String url=WXSendKefuMsgUrl+"?access_token="+getBaseAccessToken();
+			JSONObject json = new JSONObject();
+			json.put("touser", openid);
+			json.put("msgtype", type);
+			JSONObject contentJson = new JSONObject();
+			if ("image".equals(type)) {
+				contentJson.put("media_id", media_id);
+			}else if ("text".equals(type)) {
+				contentJson.put("content", msg);
+			}
+			json.put(type, contentJson);
+			String res = RequestUtil.postUrl(url, json.toJSONString());
+			Log4jKit.info("发送客服消息,返回结果==>"+res);
+			return isError(res);
+		} catch (Exception e) {
+			Log4jKit.error(e + "\tException Line==>" + e.getStackTrace()[0].getLineNumber());
+		}
+		return false;
 	}
 	
 	/**

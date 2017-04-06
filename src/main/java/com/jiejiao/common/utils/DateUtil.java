@@ -1,5 +1,6 @@
 package com.jiejiao.common.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +34,8 @@ public class DateUtil {
         Calendar c = Calendar.getInstance();  
         Date date = null;  
         try {  
-            date = new SimpleDateFormat("yy-MM-dd").parse(olddate.toLocaleString());  
+        	String format = DateFormat.getInstance().format(date);
+            date = new SimpleDateFormat("yy-MM-dd").parse(format);  
         } catch (ParseException e) {  
             e.printStackTrace();  
         }  

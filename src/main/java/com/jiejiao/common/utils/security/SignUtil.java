@@ -3,7 +3,6 @@ package com.jiejiao.common.utils.security;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
 
 /**
  * 签名
@@ -49,29 +48,27 @@ public class SignUtil {
 		return false;
 	}
 	
-	
-	
-	@Test
-	public void signTest() throws Exception {
+	public static void main(String[] args) {
 		Map<String, Object> map=new HashMap<>();
-		map.put("id", 123);
-		map.put("name", "史治国");
-		map.put("sex", 1);
-		map.put("time",1459650390);
-		map.put("is_del", false);
-		String str = getSign(map,"jiejiao");
-	}
-	
-	@Test
-	public void verifySignTest() throws Exception {
-		Map<String, Object> map=new HashMap<>();
-		map.put("id", 123);
-		map.put("name", "史治国");
-		map.put("sex", 1);
-		map.put("time", 1459650390);
-		map.put("is_del", false);
-		map.put("sign", "45F13FAC039F15A6C63237C355F1D413");
-		boolean verifySign = verifySign(map, "jiejiao");
+		map.put("city", "闸北");
+		map.put("nickname", "Gggg");
+		map.put("province", "上海");
+		map.put("sex", "2");
+		map.put("token", "9A009B9DF22C833687CB3E6D5C05ED9E");
+		map.put("timestamp", "1491448373711");
+		  
+		String genesign = getSign(map, "biubiu_app_7D&jj#@w");
+		//
+		System.out.println("签名1：4FCD2A7557B8B66DA23FF676A7B49418");
+		System.out.println("签名2："+genesign);
+		
+		map.put("sign", genesign);
+		
+		boolean verifySign = verifySign(map, "biubiu_app_7D&jj#@w");
 		System.err.println(verifySign);
+		
+		
+		System.out.println(Md5Util.getMD5("city=舟山&nickname=Vvv&province=浙江&sex=2&timestamp=1491450601572&token=A16198CE92EE24A58ECB82EBECD21840&secret=biubiu_app_7D&jj#@w").toUpperCase());
 	}
+	
 }

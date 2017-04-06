@@ -78,7 +78,7 @@ public class Md5Util {
 		
 		String resultString = null;
         try {
-            resultString = origin;
+            resultString = input;
             MessageDigest md = MessageDigest.getInstance("MD5");
             resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
         } catch (Exception e) {

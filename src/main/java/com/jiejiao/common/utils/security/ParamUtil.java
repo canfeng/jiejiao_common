@@ -41,8 +41,8 @@ public class ParamUtil {
 	public static String sortLinkString(Map<String, Object> map) {
 		ArrayList<String> list = new ArrayList<String>();
         for(Map.Entry<String,Object> entry:map.entrySet()){
-            if(entry.getValue()!=""){
-                list.add(entry.getKey() + "=" + entry.getValue() + "&");
+            if(entry.getValue() != null && !"".equals(entry.getValue().toString().trim())){
+            	list.add(entry.getKey() + "=" + entry.getValue() + "&");
             }
         }
         int size = list.size();

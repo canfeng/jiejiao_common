@@ -57,6 +57,8 @@ public class WXUtil {
 	private static String WxMchId=ConfigUtil.get("wx_mch_id");
 	//微信服务号商户号密钥
 	private static String WxMchKeySecret=ConfigUtil.get("wx_mch_key_secret");
+	//微信公众号带参数二维码生成
+	private static String WxParamQrcodeCreateUrl="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN";
 	
 	
 	
@@ -376,6 +378,37 @@ public class WXUtil {
 		return return_map;
 	}
 	
+	/**
+	 * 获取带参数二维码
+	 * @author shizhiguo
+	 * @date 2017年4月6日 下午3:20:49
+	 * @param expire_day有效天数，最大30天
+	 * @param scene_id 场景值ID(1--100000)
+	 * @return
+	 */
+	public static String getParamQrcode(Integer expire_day,Integer scene_id){
+		String qrcode_url=null;
+		try {
+			String postUrl=WxParamQrcodeCreateUrl.replace("TOKEN", getBaseAccessToken());
+			JSONObject jObject=new JSONObject();
+			jObject.put("expire_seconds", expire_day * 3600 * 24);
+			jObject.put("action_name", "QR_SCENE");//二维码类型，QR_SCENE为临时,QR_LIMIT_SCENE为永久,QR_LIMIT_STR_SCENE为永久的字符串参数值
+			JSONObject action_info=new JSONObject();
+			action_info.put("scene_id", scene_id);
+			jObject.put("action_info", action_info);
+			String res = RequestUtil.postUrl(postUrl, jObject.toJSONString());
+			Log4jKit.info("生成带参数二维码：返回结果==>"+res);
+			JSONObject json = JSON.parseObject(res);
+			if (json!=null) {
+				String ticket = json.getString("ticket");//获取的二维码ticket，凭借此ticket可以在有效时间内换取二维码。
+				String url = json.getString("url");
+				qrcode_url=url;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return qrcode_url;
+	}
 	
 	
 	

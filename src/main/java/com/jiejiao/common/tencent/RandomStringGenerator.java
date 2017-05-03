@@ -25,7 +25,13 @@ public class RandomStringGenerator {
         return sb.toString();
     }
     
-    
+    /**
+     * 获取一定长度的随机数（纯数字）
+     * @author shizhiguo
+     * @date 2017年4月6日 下午5:13:22
+     * @param length
+     * @return
+     */
     public static String getRandomNumberStringByLength(int length){
     	 String baseStr = "123456789";
          Random random = new Random();
@@ -35,6 +41,24 @@ public class RandomStringGenerator {
              sb.append(baseStr.charAt(number));
          }
          return sb.toString();
+    }
+    
+    /**
+     * 获取一定长度的随机数（包括大写和特殊字符，用于生成随机密码）
+     * @author shizhiguo
+     * @date 2017年4月6日 下午5:13:48
+     * @param length
+     * @return
+     */
+    public static String getRandomPwdStringByLength(int length){
+    	  String baseStr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*&$#?!";
+          Random random = new Random();
+          StringBuffer sb = new StringBuffer();
+          for (int i = 0; i < length; i++) {
+              int number = random.nextInt(baseStr.length());
+              sb.append(baseStr.charAt(number));
+          }
+          return sb.toString();
     }
 
 }

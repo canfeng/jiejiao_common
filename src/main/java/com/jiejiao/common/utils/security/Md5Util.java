@@ -56,19 +56,6 @@ public class Md5Util {
 	 */
 	public static String getMD5(String input) {
 
-		/*
-		 * MessageDigest md5 = null; try { md5 =
-		 * MessageDigest.getInstance("MD5"); } catch (Exception e) { //
-		 * System.out.println(e.toString()); e.printStackTrace(); return ""; }
-		 * char[] charArray = input.toCharArray(); byte[] inputArray = new
-		 * byte[charArray.length]; for (int i = 0; i < charArray.length; i++) {
-		 * inputArray[i] = (byte) charArray[i]; } byte[] outputArray =
-		 * md5.digest(inputArray); StringBuffer hexValue = new StringBuffer();
-		 * for (byte b : outputArray) { int val = (int) b & 0xff; if (val < 16)
-		 * { hexValue.append("0"); } hexValue.append(Integer.toHexString(val));
-		 * } return hexValue.toString();
-		 */
-
 		String resultString = null;
 
 		try {
@@ -86,6 +73,81 @@ public class Md5Util {
 		
 		return EncoderUtil.encString(content);
 	}
+
+	/**
+	 * md5加密 ， （已弃用，含中文加密不一致）
+	 * 
+	 * @author shizhiguo
+	 * @date 2017年4月6日 下午2:23:21
+	 * @param input
+	 * @param charset
+	 * @return
+	 */
+	public static String getMD52(String input) {
+
+		MessageDigest md5 = null;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+		} catch (Exception e) { //
+			System.out.println(e.toString());
+			e.printStackTrace();
+			return "";
+		}
+		char[] charArray = input.toCharArray();
+		byte[] inputArray = new byte[charArray.length];
+		for (int i = 0; i < charArray.length; i++) {
+			inputArray[i] = (byte) charArray[i];
+		}
+		byte[] outputArray = md5.digest(inputArray);
+		StringBuffer hexValue = new StringBuffer();
+		for (byte b : outputArray) {
+			int val = (int) b & 0xff;
+			if (val < 16) {
+				hexValue.append("0");
+			}
+			hexValue.append(Integer.toHexString(val));
+		}
+		return hexValue.toString();
+
+	}
+
+	/**
+	 * md5加密
+	 * 
+	 * @author shizhiguo
+	 * @date 2017年4月6日 下午2:23:21
+	 * @param input
+	 * @param charset
+	 * @return
+	 */
+	public static String getMD5(String input,String charset) {
+		try {
+			byte[] btInput = input.getBytes(charset);
+			MessageDigest mdInst = MessageDigest.getInstance("MD5");
+			mdInst.update(btInput);
+			byte[] md = mdInst.digest();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < md.length; i++) {
+				int val = ((int) md[i]) & 0xff;
+				if (val < 16) {
+					sb.append("0");
+				}
+				sb.append(Integer.toHexString(val));
+			}
+			return sb.toString();
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+	
+	public static void main(String[] args) {
+		String input="中国打3";
+		System.out.println("md51:"+getMD5(input));
+		System.out.println("md52(之前的):"+getMD52(input));
+		System.out.println("md53:"+getMD5(input,"utf-8"));
+	}
+	
 
 	/**
 	 * 加盐的md5输出

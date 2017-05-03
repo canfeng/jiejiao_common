@@ -3,6 +3,7 @@ package com.jiejiao.common.utils.security;
 import java.security.MessageDigest;
 import java.util.Random;
 
+import com.ccbt.util.EncoderUtil;
 import com.jiejiao.common.tencent.RandomStringGenerator;
 
 /**
@@ -79,6 +80,11 @@ public class Md5Util {
 		}
 		return resultString;
 
+	}
+	
+	public static String CCBTMD5(String content){
+		
+		return EncoderUtil.encString(content);
 	}
 
 	/**

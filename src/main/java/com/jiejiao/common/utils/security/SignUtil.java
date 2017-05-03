@@ -50,25 +50,27 @@ public class SignUtil {
 	
 	public static void main(String[] args) {
 		Map<String, Object> map=new HashMap<>();
-		map.put("city", "闸北");
-		map.put("nickname", "Gggg");
-		map.put("province", "上海");
-		map.put("sex", "2");
-		map.put("token", "9A009B9DF22C833687CB3E6D5C05ED9E");
-		map.put("timestamp", "1491448373711");
+		//map.put("city", "怀柔");
+		//map.put("nickname", "Dfff");
+		//map.put("userid", "");
+		//map.put("type", "0");
+		//map.put("token", "BBE5073346DB45EB18B3554C62362172");
+		map.put("timestamp", System.currentTimeMillis());
 		  
 		String genesign = getSign(map, "biubiu_app_7D&jj#@w");
 		//
-		System.out.println("签名1：4FCD2A7557B8B66DA23FF676A7B49418");
 		System.out.println("签名2："+genesign);
 		
-		map.put("sign", genesign);
+	/*	map.put("sign", genesign);
 		
 		boolean verifySign = verifySign(map, "biubiu_app_7D&jj#@w");
 		System.err.println(verifySign);
 		
 		
-		System.out.println(Md5Util.getMD5("city=舟山&nickname=Vvv&province=浙江&sex=2&timestamp=1491450601572&token=A16198CE92EE24A58ECB82EBECD21840&secret=biubiu_app_7D&jj#@w").toUpperCase());
+		
+	*/
+		
+		System.out.println(Md5Util.getMD5("budget=55.0&deposit_cycle=1&exact_date=0&name=出来了&per_money=1.0&state=0&timestamp=1493719054495&token=4850D8E01D4C9DAB827C2FB1BB048956&url=http://api.zq.jiejiaohui.com/upload/wish/default/9eef71bd-b264-4c4e-8e41-58df4f27440f.png&secret=biubiu_app_7D&jj#@w").toUpperCase());
 	}
 	
 }

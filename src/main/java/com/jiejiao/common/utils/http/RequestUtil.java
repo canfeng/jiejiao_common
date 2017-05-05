@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
 
+import com.jiejiao.common.utils.log.Log4jKit;
+
 /*
  * 请求
  */
@@ -103,9 +105,12 @@ public class RequestUtil {
 		return getHtml(url, "utf-8", 10000, HttpActionType.POST);
 	}
 
-	
-	public static String postUrl(String url,String paramStr){
-		return getHtml(url, "utf-8", 10000, HttpActionType.POST,paramStr);
+	public static String postUrl(String url, String paramStr) {
+		Log4jKit.info("请求url==>" + url);
+		Log4jKit.info("发送参数==>" + paramStr);
+		String res = getHtml(url, "utf-8", 10000, HttpActionType.POST, paramStr);
+		Log4jKit.info("返回结果==>" + res);
+		return res;
 	}
 
 	public static String getUrl(String url) {
@@ -134,8 +139,8 @@ public class RequestUtil {
 			httpConn.setRequestProperty("Connection", "Keep-Alive");// 维持长连接
 			httpConn.setRequestProperty("Charset", "UTF-8");
 			//
-//			String name = URLEncoder.encode("黄武艺", "utf-8");
-//			httpConn.setRequestProperty("NAME", name);
+			// String name = URLEncoder.encode("黄武艺", "utf-8");
+			// httpConn.setRequestProperty("NAME", name);
 
 			// 建立输出流，并写入数据
 			OutputStream outputStream = httpConn.getOutputStream();
@@ -163,9 +168,8 @@ public class RequestUtil {
 		return null;
 
 	}
-	
-	enum HttpActionType{
-		GET,
-		POST,
+
+	enum HttpActionType {
+		GET, POST,
 	}
 }

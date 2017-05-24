@@ -61,6 +61,6 @@ public class SignUtil {
 		map.put("timestamp", System.currentTimeMillis());
 		map.put("token", ""); 
 		
-		System.out.println("".equals(map.get("token")));
+		System.out.println(map.get("token").equals(map.get("token").toString()));
 	}
 }

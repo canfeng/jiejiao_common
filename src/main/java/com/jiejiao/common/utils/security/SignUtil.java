@@ -41,6 +41,9 @@ public class SignUtil {
 		Map<String, Object> map=new HashMap<>();
 		map.putAll(paramMap);
 		map.remove("sign");
+		if(map.containsKey("token") && map.get("token").toString().length() != 32){
+			map.remove("token");
+		}
 		String genesign = getSign(map, secret);
 		if (sign.toUpperCase().equals(genesign)) {
 			return true;
@@ -56,21 +59,8 @@ public class SignUtil {
 		//map.put("type", "0");
 		//map.put("token", "BBE5073346DB45EB18B3554C62362172");
 		map.put("timestamp", System.currentTimeMillis());
-		  
-		String genesign = getSign(map, "biubiu_app_7D&jj#@w");
-		//
-		System.out.println("签名2："+genesign);
+		map.put("token", ""); 
 		
-	/*	map.put("sign", genesign);
-		
-		boolean verifySign = verifySign(map, "biubiu_app_7D&jj#@w");
-		System.err.println(verifySign);
-		
-		
-		
-	*/
-		
-		System.out.println(Md5Util.getMD5("budget=55.0&deposit_cycle=1&exact_date=0&name=出来了&per_money=1.0&state=0&timestamp=1493719054495&token=4850D8E01D4C9DAB827C2FB1BB048956&url=http://api.zq.jiejiaohui.com/upload/wish/default/9eef71bd-b264-4c4e-8e41-58df4f27440f.png&secret=biubiu_app_7D&jj#@w").toUpperCase());
+		System.out.println("".equals(map.get("token")));
 	}
-	
 }

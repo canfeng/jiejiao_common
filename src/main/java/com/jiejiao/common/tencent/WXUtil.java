@@ -372,7 +372,7 @@ public class WXUtil {
 			return_map = XMLParser.getMapFromXML(res);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log4jKit.error(e + "\tException Line==>" + e.getStackTrace()[0]);
 		}
 		
 		return return_map;

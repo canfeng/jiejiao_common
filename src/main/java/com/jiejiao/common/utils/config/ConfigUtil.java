@@ -1,5 +1,6 @@
 package com.jiejiao.common.utils.config;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ResourceBundle;
 
 /**
@@ -28,7 +29,16 @@ public class ConfigUtil {
 	 * @return
 	 */
 	public static String get(String key){
-		return bundle.getString(key);
+		//return bundle.getString(key);
+		try {
+			return new String(  
+			        (bundle.getString(key))  
+			        .getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;  
 	}
 	
 }

@@ -113,7 +113,7 @@ public class DynamicSqlUtil {
 				String key = entry.getKey();
 
 				if (key != null) {
-
+					
 					String[] keys = key.split(",");
 					if (keys.length <= 0) {
 						continue;
@@ -122,12 +122,14 @@ public class DynamicSqlUtil {
 					String queryType = keys.length > 1 ? keys[1] : Equal;// 默认eq
 
 					if (value != null && !"".equals(value)) {
-
+						
+						if(Sort.equals(key)){//排序
+							order.append(" "+ value.toString().replaceAll(",", " "));
+							continue;
+						}
 						if (notEmpty(fieldName) && notEmpty(queryType)) {
 
-							if (Sort.equals(queryType)) {// 升序
-								order.append("," + fieldName + " " + value);
-							} else if (Equal.equals(queryType)) {
+							if (Equal.equals(queryType)) {
 								where.append("and " + fieldName + " = ? ");
 								params.add(value);
 							} else if (Not_Equal.equals(queryType)) {

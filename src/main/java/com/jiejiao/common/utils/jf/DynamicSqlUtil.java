@@ -156,12 +156,12 @@ public class DynamicSqlUtil {
 							} else if (Not_Empty.equals(queryType)) {
 								where.append("and " + fieldName + " is not null ");
 							} else if (In.equals(queryType)) {
-								List list = (List) value;
+								String[] vals = value.toString().split(",");
 								StringBuffer instr = new StringBuffer();
-								where.append(" and " + fieldName + " in (");
-								for (Object obj : list) {
+								where.append("and " + fieldName + " in (");
+								for (int i=0,l=vals.length;i<l;i++) {
 									instr.append(notEmpty(instr.toString()) ? ",?" : "?");
-									params.add(obj);
+									params.add(vals[i]);
 								}
 								where.append(instr + ") ");
 							}

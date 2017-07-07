@@ -7,6 +7,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.jiejiao.common.tencent.RandomStringGenerator;
+import com.jiejiao.common.utils.log.LogKit;
 import com.jiejiao.common.utils.security.Md5Util;
 
 public class Md5Test {
@@ -59,6 +60,6 @@ public class Md5Test {
 		String md5 = Md5Util.getSaltMd5("123456");
 		System.out.println("md5:"+md5);
 		boolean b = Md5Util.verifySaltMd5("123456", md5);
-		System.out.println("是否通过："+ (b?"成功":"错误"));
+		LogKit.info("123");
 	}
 }

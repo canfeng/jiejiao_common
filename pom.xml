@@ -18,9 +18,6 @@
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<spring.version>3.2.10.RELEASE</spring.version>
 
-		<!-- plugins version -->
-		<dep.log4j.version>1.2.17</dep.log4j.version>
-		<dep.slf4j.version>1.7.7</dep.slf4j.version>
 		<dep.maven-eclipse-plugin.version>2.9</dep.maven-eclipse-plugin.version>
 		<dep.plugin.javadoc.version>2.9.1</dep.plugin.javadoc.version>
 		<dep.plugin.source.version>2.2.1</dep.plugin.source.version>
@@ -30,6 +27,8 @@
 		<dep.maven-surefire-plugin.version>2.9</dep.maven-surefire-plugin.version>
 		<dep.maven-compiler-plugin.version>3.1</dep.maven-compiler-plugin.version>
 		<dep.maven-jetty-plugin.version>6.1.26</dep.maven-jetty-plugin.version>
+		<logback.version>1.2.3</logback.version>
+        <slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
 	<dependencies>
@@ -39,24 +38,31 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-
-
+		
 		<!-- 日志 相关 -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.25</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.25</version>
-		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+
 		<!-- fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>

@@ -1,15 +1,16 @@
 
 package com.jiejiao.common.utils.log;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * log4j日志工具类,方便直接输出日志信息，不用每个类都声明logger日志对象
+ * log日志工具类,方便直接输出日志信息，不用每个类都声明logger日志对象
  * 
  * @author Administrator
  *
  */
-public class Log4jKit {
+public class LogKit {
 
 	/**
 	 * 获取最原始被调用的堆栈信息
@@ -25,7 +26,7 @@ public class Log4jKit {
 		// 最原始被调用的堆栈信息
 		StackTraceElement caller = null;
 		// 日志类名称
-		String logClassName = Log4jKit.class.getName();
+		String logClassName = LogKit.class.getName();
 		// 循环遍历到日志类标识
 		boolean isEachLogClass = false;
 
@@ -58,9 +59,9 @@ public class Log4jKit {
 	private static Logger logger() {
 		StackTraceElement caller = findCaller();// 最原始被调用的堆栈对象
 		if (caller == null) {
-			return Logger.getLogger(Log4jKit.class);
+			return LoggerFactory.getLogger(LogKit.class);
 		} else {
-			return Logger.getLogger(
+			return LoggerFactory.getLogger(
 					caller.getClassName() + "." + caller.getMethodName() + "() Line: " + caller.getLineNumber());
 		}
 	}

@@ -16,7 +16,7 @@ import com.jiejiao.common.utils.JedisPoolUtil;
 import com.jiejiao.common.utils.StringUtil;
 import com.jiejiao.common.utils.config.ConfigUtil;
 import com.jiejiao.common.utils.http.RequestUtil;
-import com.jiejiao.common.utils.log.Log4jKit;
+import com.jiejiao.common.utils.log.LogKit;
 
 /**
  * 微信公共类
@@ -322,10 +322,10 @@ public class WXUtil {
 			}
 			json.put(type, contentJson);
 			String res = RequestUtil.postUrl(url, json.toJSONString());
-			Log4jKit.info("发送客服消息,返回结果==>"+res);
+			LogKit.info("发送客服消息,返回结果==>"+res);
 			return isError(res);
 		} catch (Exception e) {
-			Log4jKit.error(e + "\tException Line==>" + e.getStackTrace()[0].getLineNumber());
+			LogKit.error(e + "\tException Line==>" + e.getStackTrace()[0].getLineNumber());
 		}
 		return false;
 	}
@@ -372,7 +372,7 @@ public class WXUtil {
 			return_map = XMLParser.getMapFromXML(res);
 			
 		} catch (Exception e) {
-			Log4jKit.error(e + "\tException Line==>" + e.getStackTrace()[0]);
+			LogKit.error(e + "\tException Line==>" + e.getStackTrace()[0]);
 		}
 		
 		return return_map;
@@ -397,7 +397,7 @@ public class WXUtil {
 			action_info.put("scene_id", scene_id);
 			jObject.put("action_info", action_info);
 			String res = RequestUtil.postUrl(postUrl, jObject.toJSONString());
-			Log4jKit.info("生成带参数二维码：返回结果==>"+res);
+			LogKit.info("生成带参数二维码：返回结果==>"+res);
 			JSONObject json = JSON.parseObject(res);
 			if (json!=null) {
 				String ticket = json.getString("ticket");//获取的二维码ticket，凭借此ticket可以在有效时间内换取二维码。

@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.Date;
 
 import com.jiejiao.common.utils.http.RequestUtil;
-import com.jiejiao.common.utils.log.Log4jKit;
+import com.jiejiao.common.utils.log.LogKit;
 
 /**
  * 微信多媒体的工具类
@@ -143,7 +143,7 @@ public class WXMediaUtil {
 			
 		} catch (Exception e) {
 			// 打印异常行数
-			Log4jKit.error(e + "\tException Line==>" + e.getStackTrace()[0].getLineNumber());
+			LogKit.error(e + "\tException Line==>" + e.getStackTrace()[0].getLineNumber());
 		}
 		return resultStr;
 	}

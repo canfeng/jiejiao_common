@@ -6,12 +6,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Map;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
 
-import com.jiejiao.common.utils.log.Log4jKit;
+import com.jiejiao.common.utils.log.LogKit;
 
 /*
  * 请求
@@ -106,10 +104,10 @@ public class RequestUtil {
 	}
 
 	public static String postUrl(String url, String paramStr) {
-		Log4jKit.info("请求url==>" + url);
-		Log4jKit.info("发送参数==>" + paramStr);
+		LogKit.info("请求url==>" + url);
+		LogKit.info("发送参数==>" + paramStr);
 		String res = getHtml(url, "utf-8", 10000, HttpActionType.POST, paramStr);
-		Log4jKit.info("返回结果==>" + res);
+		LogKit.info("返回结果==>" + res);
 		return res;
 	}
 

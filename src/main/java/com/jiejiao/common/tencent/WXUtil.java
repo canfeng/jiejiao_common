@@ -342,6 +342,22 @@ public class WXUtil {
 	 * @param ip  调用接口的ip
 	 * @return
 	 */
+	public static Map<String, Object> qyPay(String openId,Double amount,String tradeNo,String desc,String ip){
+		return qyPay(openId, "temp_name", amount, tradeNo, desc, ip);
+	}
+	
+	/**
+	 *  企业付款
+	 * @author shizhiguo
+	 * @date 2017年2月9日 下午1:57:46
+	 * @param openId  支付用户openid
+	 * @param userRealName  用户真实姓名
+	 * @param amount  金额
+	 * @param tradeNo 交易订单号
+	 * @param desc 描述信息
+	 * @param ip  调用接口的ip
+	 * @return
+	 */
 	public static Map<String, Object> qyPay(String openId,String userRealName,Double amount,String tradeNo,String desc,String ip){
 		
 		Map<String, Object> map = new HashMap<String, Object>();

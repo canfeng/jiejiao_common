@@ -33,7 +33,7 @@ public class JedisPoolUtil {
 		config.setMinEvictableIdleTimeMillis(Long.parseLong(bundle.getString("redis.minEvictableIdleTimeMillis")));
 		config.setTimeBetweenEvictionRunsMillis(Long.parseLong(bundle.getString("redis.timeBetweenEvictionRunsMillis")));
 		config.setNumTestsPerEvictionRun(Integer.parseInt(bundle.getString("redis.numTestsPerEvictionRun")));
-		jedisPool = new JedisPool(config, bundle.getString("redis.hostName"), Integer.parseInt(bundle.getString("redis.port")), 60000);
+		jedisPool = new JedisPool(config, bundle.getString("redis.hostName"), Integer.parseInt(bundle.getString("redis.port")), 60000,bundle.getString("redis.pwd"));
 	}
 
 	public static Jedis getJedis() {

@@ -1,6 +1,7 @@
 package com.jiejiao.common.utils.jf;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -84,14 +85,16 @@ public class DynamicSqlUtil {
 	 */
 	public DynamicSqlUtil(Map<String, Object> map, String default_order_field, Object... removeKeys) {
 		this.order_con = default_order_field;
+		Map<String, Object> tempMap =  new HashMap<>();
+		tempMap.putAll(map);
 		if (removeKeys.length > 0) {
 			for (Object key : removeKeys) {
-				if (map.containsKey(key)) {
-					map.remove(key);
+				if (tempMap.containsKey(key)) {
+					tempMap.remove(key);
 				}
 			}
 		}
-		setWhereClause(map);
+		setWhereClause(tempMap);
 	}
 
 	public void setWhereClause(Map<String, Object> map) {
